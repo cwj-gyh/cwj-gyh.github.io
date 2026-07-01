@@ -1,26 +1,218 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ═══════════════════════════════════════════
+   Dimensional Scholar — Design Token System
+   ═══════════════════════════════════════════ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-source-sans);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
+/* ── Light Mode (default) ── */
+:root {
+  --bg-primary: #faf9f6;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f3f1ec;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-tertiary: #8c8c8c;
+  --accent-coral: #e85d3a;
+  --accent-coral-hover: #d04a2a;
+  --accent-blue: #2d5f8a;
+  --accent-blue-hover: #1e4a6e;
+  --accent-gold: #d4a853;
+  --border: #e8e5df;
+  --border-strong: #d5d1c9;
+}
+
+/* ── Dark Mode ── */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-primary: #121416;
+    --bg-surface: #1c1e21;
+    --bg-elevated: #26282c;
+    --text-primary: #edece8;
+    --text-secondary: #9d9b97;
+    --text-tertiary: #6e6d6a;
+    --accent-coral: #f07254;
+    --accent-coral-hover: #e85d3a;
+    --accent-blue: #6ba3cc;
+    --accent-blue-hover: #8abfe0;
+    --accent-gold: #e0b860;
+    --border: #2e3035;
+    --border-strong: #3e4046;
   }
 }
 
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body, "Source Sans 3", sans-serif);
+  font-weight: 400;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Display / Heading defaults ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display, "Playfair Display", serif);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--accent-coral);
+  color: #fff;
+}
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--accent-coral);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Cards (shared utility) ── */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.625rem; /* 10px — subtle, not fully sharp but not pill */
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-body, "Source Sans 3", sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent-coral);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: var(--accent-coral-hover);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-body, "Source Sans 3", sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  border-color: var(--accent-coral);
+  background: var(--bg-elevated);
+}
+
+/* ── Tag / Badge ── */
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-blue);
+  background: color-mix(in srgb, var(--accent-blue) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-blue) 15%, transparent);
+  border-radius: 0.375rem;
+  letter-spacing: -0.01em;
+}
+
+/* ── Divider ── */
+.section-divider {
+  width: 3rem;
+  height: 2px;
+  background: var(--accent-coral);
+  border: none;
+  margin: 0;
+}
+
+/* ── Link underline ── */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.text-link {
+  color: var(--accent-blue);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent-blue) 30%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+.text-link:hover {
+  text-decoration-color: var(--accent-blue);
+}
+
+/* ── Animations (respects reduced-motion) ── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+.animate-float-slower {
+  animation: float-slower 8s ease-in-out infinite;
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-slower,
+  .animate-pulse-subtle {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
